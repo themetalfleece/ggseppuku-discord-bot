@@ -1,6 +1,6 @@
 import * as Discord from 'discord.js';
 import * as dotenv from 'dotenv';
-import * as moment from 'moment-timezone';
+import moment from 'moment-timezone';
 import axios from 'axios';
 
 const axiosInstance = axios.create();
