@@ -1,0 +1,9 @@
+# GuildBot parameters
+parameters.ts
+
+node_modules
+# build path
+dist
+# environmental variables
+.env
+yarn-error.log
