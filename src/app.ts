@@ -25,7 +25,7 @@ const timezonesToUse: Array<{ timezone: string; name: string }> = [
     },
     {
         timezone: 'Europe/Madrid',
-        name: 'Spain',
+        name: 'Spain/France',
     },
     {
         timezone: 'Europe/Athens',
@@ -79,11 +79,13 @@ const getTopChattersEmbed = async () => {
 };
 
 const getTimezoneEmbed = (content: string) => {
-    const format = 'hh:mm a';
-    const rawInput = content.split(' ')[1];
+    try {
+        const format = 'hh:mm a';
+        const rawInput = content.split(' ')[1];
 
-    if (rawInput) {
-        const jpTime = moment.tz(rawInput, format, 'Asia/Tokyo');
+        const jpTime = rawInput
+            ? moment.tz(rawInput, format, 'Asia/Tokyo')
+            : moment.tz('Asia/Tokyo');
 
         const embed = new Discord.MessageEmbed({
             title: `Japan time ${jpTime.format(format)}`,
@@ -94,13 +96,8 @@ const getTimezoneEmbed = (content: string) => {
             })),
         });
         return embed;
-    } else {
-        const jpTime = moment.tz('Asia/Tokyo').format(format);
-        const embed = new Discord.MessageEmbed({
-            title: `Japan time now`,
-            description: jpTime,
-        });
-        return embed;
+    } catch (err) {
+        console.log(err);
     }
 };
 
